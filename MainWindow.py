@@ -25,8 +25,7 @@ pie.patches, pie.text2, pie.text1 = plt.pie(pie.sizes,
                                             textprops={'fontsize': 8, 'color': '#000080'}
                                             )
 plt.axis('equal')
-for t in pie.text2:
-    t.setsize = 8
+
 canvas_statis = FigureCanvasTkAgg(pie, window)
 canvas_statis.get_tk_widget().place(x=40, y=40)
 window.mainloop()
