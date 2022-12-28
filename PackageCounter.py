@@ -1,8 +1,8 @@
 from scapy.all import *
 
 
-def countPackets():
-    packets = rdpcap('/home/alexandr/test_dump.pcap')
+def countPackets(filepath):
+    packets = rdpcap(filepath)
     total_counter = len(packets)
     dhcp_counter = 0
     dns_counter = 0
@@ -21,6 +21,8 @@ def countPackets():
             tcp_counter = tcp_counter + 1
         elif pack.haslayer(UDP):
             udp_counter = udp_counter + 1
+
     other_counter = total_counter - arp_counter - dhcp_counter - dns_counter - tcp_counter - udp_counter
 
-    print(other_counter)
+    return [arp_counter, dhcp_counter, dns_counter, tcp_counter, udp_counter, other_counter]
+
