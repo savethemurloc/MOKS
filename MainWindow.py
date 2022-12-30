@@ -54,6 +54,9 @@ def createDiagramm():
     figureCanvas.get_tk_widget().place(x=400, y=60)
 
 
+def on_closing():
+    if mb.askokcancel("Quit", "Do you want to quit?"):
+        window.destroy()
 
 
 def execMainWindow():
@@ -63,4 +66,5 @@ def execMainWindow():
     create_button = ttk.Button(text="Create diagramm", command=createDiagramm)
     create_button.grid(column=1, row=1, padx=10, pady=10)
 
+    window.protocol("WM_DELETE_WINDOW", on_closing)
     window.mainloop()
