@@ -16,7 +16,7 @@ def createDiagramm():
     matplotlib.use('TkAgg')
     pie = plt.figure(figsize=(4, 4), facecolor="#F0F0F0")
     pie.labels = ['ARP', 'DHCP', 'DNS', 'TCP', 'UDP', 'Other']
-    filepath = filedialog.askopenfilename()
+    filepath = filedialog.askopenfilename(filetypes=[("PCAP files", "*.pcap")])
     try:
         pie.sizes = countPackets(filepath)
     except Exception:
