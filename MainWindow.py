@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog
 from tkinter import ttk
+from tkinter import messagebox as mb
 import matplotlib
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
@@ -16,7 +17,14 @@ def createDiagramm():
     pie = plt.figure(figsize=(4, 4), facecolor="#F0F0F0")
     pie.labels = ['ARP', 'DHCP', 'DNS', 'TCP', 'UDP', 'Other']
     filepath = filedialog.askopenfilename()
-    pie.sizes = countPackets(filepath)
+    try:
+        pie.sizes = countPackets(filepath)
+    except Exception:
+        mb.showerror(
+            "Error!",
+            "You need to select *.pcap file."
+        )
+        return
     pie.patches, pie.text2, pie.text1 = plt.pie(pie.sizes,
                                                 labels=pie.labels,
                                                 autopct='%1.1f%%',
@@ -35,12 +43,13 @@ def createDiagramm():
     colors = [["r", "b", "g"][int(np.random.randint(0, 3, 1))] for _ in pie.sizes]
     bar = plt.figure(figsize=(4, 4), facecolor="#F0F0F0")
     bar.patches = plt.bar(pie.labels,
-                                                pie.sizes,
-                                                alpha=0.6,
-                                                bottom=2,
-                                                color=colors,
-                                                edgecolor="k",
-                                                linewidth=2)
+                          pie.sizes,
+                          alpha=0.6,
+                          bottom=2,
+                          color=colors,
+                          edgecolor="k",
+                          linewidth=2
+                          )
     figureCanvas = FigureCanvasTkAgg(bar, window)
     figureCanvas.get_tk_widget().place(x=400, y=60)
 
